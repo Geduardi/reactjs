@@ -1,7 +1,21 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
 }
-
+html,
+body,
+#root
+{
+  height: 100%;
+}
+.App {
+  /*text-align: center;*/
+  position: relative;
+  min-height: 100%;
+}
+.messageArea{
+  padding-bottom: 90px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
