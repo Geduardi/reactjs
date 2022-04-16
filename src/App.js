@@ -1,15 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import {Message} from "./components/Message/Message";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Form} from "./components/Form/Form";
-import {AUTHORS} from "./utils/constants";
+import {AUTHORS, CHATS} from "./utils/constants";
 import {MessageList} from "./components/MessageList/MessageList";
+import {ChatList} from "./components/ChatList/ChatList";
 
 
 
 function App() {
     const [messageList,setMessageList] = useState([]);
+    const [chatList,setChatList] = useState(CHATS);
+
+    const timeout = useRef();
 
     const addMsg = (Msg) => {
         setMessageList([...messageList,Msg])
@@ -17,20 +20,27 @@ function App() {
 
     const sendMsg = (text) => {
         // addMsg({author: human, text: text})
-        addMsg({author: AUTHORS.human, text}) //^^Эквивалент^^
+        addMsg({
+            author: AUTHORS.human,
+            text,//^^Эквивалент "text: text"^^
+            id: `msg-${Date.now()}`,
+        })
     }
 
     useEffect(()=>{
-        let timeout;
         // if (messageList.length > 0 && messageList[messageList.length-1].author !== robotName) {
         if (messageList[messageList.length-1]?.author === AUTHORS.human) { //optional chaining
-            timeout = setTimeout(()=>{
-                addMsg({author:AUTHORS.robotName, text: "Ваше сообщение отправлено"})
+            timeout.current = setTimeout(()=>{
+                addMsg({
+                    author:AUTHORS.robotName,
+                    text: "Ваше сообщение отправлено",
+                    id: `msg-${Date.now()}`,
+                })
             },1500);
         }
 
         return () => {
-            clearTimeout(timeout);
+            clearTimeout(timeout.current);
         };
 
     },[messageList])
@@ -39,6 +49,7 @@ function App() {
 
   return (
     <div className="App">
+        <ChatList chats={chatList} />
         <MessageList messages={messageList} />
         <Form onSubmit={sendMsg} />
     </div>

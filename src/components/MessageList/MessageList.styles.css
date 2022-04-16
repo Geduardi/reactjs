@@ -1,0 +1,18 @@
+.messageArea {
+    /*margin-top: 100px;*/
+    text-align: center;
+    overflow-y: scroll;
+    max-height: 85vh;
+    max-width: 70vw;
+    padding: 0 15vw;
+    margin: 100px auto 0;
+}
+
+.messageArea::-webkit-scrollbar {
+    width: 10px;
+}
+
+.messageArea::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #24a9e7;
+}
