@@ -1,6 +1,7 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import './Form.styles.css';
 import {Button, TextField} from "@mui/material";
+
 export const Form = ({onSubmit}) => {
 
     const [value, setValue] = useState('');
@@ -19,7 +20,7 @@ export const Form = ({onSubmit}) => {
     }
 
     const handleKeyDown = (event) => {
-        if (event.which === 13){
+        if (event.which === 13) {
             event.preventDefault();
             handleSubmit(event);
         }
@@ -27,12 +28,13 @@ export const Form = ({onSubmit}) => {
 
     useEffect(() => {
         inputRef.current?.focus();
-    },[])
+    }, [])
 
     return (
-        <form onSubmit={handleSubmit} >
-            <TextField variant={"outlined"} label="Написать сообщение" onKeyDown={handleKeyDown} multiline maxRows={3} size={"small"} value={value} onChange={handleChange} inputRef={inputRef} />
-            <Button type={"submit"} variant={"contained"} >Отправить</Button>
+        <form onSubmit={handleSubmit}>
+            <TextField variant={"outlined"} label="Написать сообщение" onKeyDown={handleKeyDown} multiline maxRows={3}
+                       size={"small"} value={value} onChange={handleChange} inputRef={inputRef}/>
+            <Button type={"submit"} variant={"contained"}>Отправить</Button>
         </form>
     )
 }

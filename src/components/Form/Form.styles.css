@@ -1,11 +1,11 @@
 form {
     position: fixed;
-    text-align:right;
+    text-align: right;
     right: 10px;
-    top:10px;
+    top: 10px;
     max-height: 15vh;
 }
 
-.MuiButton-root{
+.MuiButton-root {
     height: 40px;
 }
