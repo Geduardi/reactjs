@@ -1,2 +1,10 @@
 import './Message.styles.css';
-export const Message = ({message_text}) => <h3 className="message">{message_text}</h3>;
+export const Message = ({msgText, author, robotName}) => {
+
+    return (
+        <div className={"message" + ((author === robotName) ? " bot" : "")}>
+            <span className="message-author">{author}:</span>
+            <span>{msgText}</span>
+        </div>
+    );
+};

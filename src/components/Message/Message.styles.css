@@ -1,8 +1,18 @@
 .message {
-    background-color: gray;
-    width: 10%;
+    background-color: blue;
+    width: fit-content;
     padding: 10px;
     margin: auto;
     color: white;
     border-radius: 5px;
+}
+
+.bot {
+    background-color: gray;
+}
+
+.message-author {
+    font-style: oblique;
+    font-weight: bold;
+    margin-right: 5px;
 }
