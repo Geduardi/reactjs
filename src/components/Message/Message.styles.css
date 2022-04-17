@@ -1,8 +1,8 @@
 .message {
-    background-color: blue;
+    background-color: #24a4ff;
     width: fit-content;
     padding: 10px;
-    margin: auto;
+    margin: 5px auto;
     color: white;
     border-radius: 5px;
 }
