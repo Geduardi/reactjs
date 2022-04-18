@@ -5,7 +5,7 @@
     max-height: 85vh;
     max-width: 70vw;
     padding: 0 15vw;
-    margin: 100px auto 0;
+    /*margin: 100px auto 0;*/
 }
 
 .messageArea::-webkit-scrollbar {

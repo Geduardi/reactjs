@@ -12,8 +12,17 @@ export const THEME = createTheme({
                     color: "white",
                     backgroundColor: '#42a5f5',
                     borderRadius: '10px',
+                    width: "fit-content",
                 },
             }
-        }
-    }
+        },
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '10px',
+                }
+            }
+        },
+    },
+
 })

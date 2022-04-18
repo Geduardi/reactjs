@@ -1,61 +1,28 @@
 import './App.css';
-import {useEffect, useRef, useState} from "react";
-import {Form} from "./components/Form/Form";
-import {AUTHORS, CHATS} from "./utils/constants";
-import {MessageList} from "./components/MessageList/MessageList";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Home} from "./screens/Home/Home";
+import {Chat} from "./screens/Chat/Chat";
 import {ChatList} from "./components/ChatList/ChatList";
 import {ThemeProvider} from "@mui/material";
 import {THEME} from "./utils/theme";
-
+import {Menu} from "./components/Menu/Menu";
 
 
 function App() {
-    const [messageList, setMessageList] = useState([]);
-    const [chatList, setChatList] = useState(CHATS);
-
-    const timeout = useRef();
-
-    const addMsg = (Msg) => {
-        setMessageList([...messageList, Msg])
-    }
-
-    const sendMsg = (text) => {
-        // addMsg({author: human, text: text})
-        addMsg({
-            author: AUTHORS.human,
-            text,//^^Эквивалент "text: text"^^
-            id: `msg-${Date.now()}`,
-        })
-    }
-
-    useEffect(() => {
-        // if (messageList.length > 0 && messageList[messageList.length-1].author !== robotName) {
-        if (messageList[messageList.length - 1]?.author === AUTHORS.human) { //optional chaining
-            timeout.current = setTimeout(() => {
-                addMsg({
-                    author: AUTHORS.robotName,
-                    text: "Ваше сообщение отправлено",
-                    id: `msg-${Date.now()}`,
-                })
-            }, 1500);
-        }
-
-        return () => {
-            clearTimeout(timeout.current);
-        };
-
-    }, [messageList])
-
-
     return (
-        <div className="App">
-            <ThemeProvider theme={THEME}>
-                <ChatList chats={chatList}/>
-                <MessageList messages={messageList}/>
-                <Form onSubmit={sendMsg}/>
-            </ThemeProvider>
-        </div>
-    );
+        <ThemeProvider theme={THEME}>
+            <BrowserRouter>
+                <Menu/>
+                <Routes>
+                    <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/chat'} element={<ChatList/>}>
+                        <Route path={':id'} element={<Chat/>}/>
+                    </Route>
+                    <Route path={'*'} element={<Home/>}/>
+                </Routes>
+            </BrowserRouter>
+        </ThemeProvider>
+    )
 }
 
 export default App;

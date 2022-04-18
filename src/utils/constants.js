@@ -18,3 +18,9 @@ export const CHATS = [
     }
 ]
 
+export const initMessages = {
+    1: [],
+    2: [],
+    3: [],
+}
+
