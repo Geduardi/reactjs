@@ -1,13 +1,13 @@
 import {useEffect, useRef, useState} from "react";
-import {AUTHORS, initMessages} from "../../utils/constants";
+import {AUTHORS} from "../../utils/constants";
 import {MessageList} from "../../components/MessageList/MessageList";
 import {Form} from "../../components/Form/Form";
-import {Navigate, useParams} from "react-router-dom";
+import {Navigate, useOutletContext, useParams} from "react-router-dom";
 import {Button} from "@mui/material";
 
 export const Chat = () => {
     const { id } = useParams();
-    const [messageList, setMessageList] = useState(initMessages);
+    const [messageList, setMessageList] = useState(useOutletContext());
 
 
     const timeout = useRef();
@@ -51,7 +51,6 @@ export const Chat = () => {
 
     return (
         <div className="App">
-
                 <MessageList messages={messageList[id]}/>
                 <Form onSubmit={sendMsg}/>
 

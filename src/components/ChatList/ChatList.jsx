@@ -2,19 +2,37 @@ import {Button, Menu, MenuItem} from "@mui/material";
 import './ChatList.styles.css';
 import {useState} from "react";
 import {Link, Outlet} from "react-router-dom";
-import {CHATS} from "../../utils/constants";
+import {CHATS, initMessages} from "../../utils/constants";
 
 
 export const ChatList = () => {
 
+    const [chatList, setChatList] = useState(CHATS);
+    const [messageList, setMessageList] = useState(initMessages);
+
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event) => {
+    const handleChatListClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+    const handleChatListClose = () => {
         setAnchorEl(null);
     };
+
+    const handleAddChatClick = () => {
+        let newChatName = prompt('Введите название нового чата','');
+        if (newChatName === '') {
+            alert('Вы не ввели имя...');
+        }
+        if (newChatName) {
+            let newId = chatList.length + 1;
+            setChatList([...chatList,{id: newId, name: newChatName}]);
+            setMessageList({...messageList, [newId]:[]});
+        }
+    }
+    const handleDeleteChatClick = () => {
+
+    }
 
     return (
         <>
@@ -25,7 +43,7 @@ export const ChatList = () => {
                             aria-controls={open ? 'basic-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}
+                            onClick={handleChatListClick}
                     >
                         Список чатов
                     </Button>
@@ -33,13 +51,13 @@ export const ChatList = () => {
                         id="basic-menu"
                         anchorEl={anchorEl}
                         open={open}
-                        onClose={handleClose}
+                        onClose={handleChatListClose}
                         MenuListProps={{
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        {CHATS.map((chat) =>
-                            <MenuItem onClick={handleClose}>
+                        {chatList.map((chat) =>
+                            <MenuItem key={chat.id} onClick={handleChatListClose}>
                                 <Link to={`/chat/${chat.id}`} key={chat.id}>
                                     {chat.name}
                                 </Link>
@@ -49,13 +67,11 @@ export const ChatList = () => {
 
                 </div>
                 <div>
-                    <Button onClick={() => {
-                    }}>Добавить чат</Button>
+                    <Button onClick={handleAddChatClick}>Добавить чат</Button>
                 </div>
-                <Button onClick={() => {
-                }}>Удалить чат</Button>
+                <Button onClick={handleDeleteChatClick}>Удалить чат</Button>
             </div>
-            <Outlet/>
+            <Outlet context={messageList}/>
         </>
     );
 }
