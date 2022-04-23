@@ -7,10 +7,13 @@ import {ThemeProvider} from "@mui/material";
 import {THEME} from "./utils/theme";
 import {Menu} from "./components/Menu/Menu";
 import {Profile} from "./screens/Profile/Profile";
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 
 function App() {
     return (
+        <Provider store={store}>
         <ThemeProvider theme={THEME}>
             <BrowserRouter>
                 <Menu/>
@@ -23,7 +26,7 @@ function App() {
                     <Route path={'*'} element={<Home/>}/>
                 </Routes>
             </BrowserRouter>
-        </ThemeProvider>
+        </ThemeProvider></Provider>
     )
 }
 

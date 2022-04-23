@@ -1,7 +1,7 @@
 import {Button, Menu, MenuItem} from "@mui/material";
 import './ChatList.styles.css';
 import {useState} from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Navigate, Outlet} from "react-router-dom";
 import {CHATS, initMessages} from "../../utils/constants";
 
 
@@ -30,12 +30,8 @@ export const ChatList = () => {
             setMessageList({...messageList, [newId]:[]});
         }
     }
-    const handleDeleteChatClick = (chatId) => {
-        let newChatList = chatList.map((chat, i)->{
-            if (chat.id === chatId){
+    const handleDeleteChatClick = () => {
 
-            }
-        });
     }
 
     return (
