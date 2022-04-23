@@ -1,7 +1,7 @@
 import {Button, Menu, MenuItem} from "@mui/material";
 import './ChatList.styles.css';
 import {useState} from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Navigate, Outlet} from "react-router-dom";
 import {CHATS, initMessages} from "../../utils/constants";
 
 
@@ -25,13 +25,29 @@ export const ChatList = () => {
             alert('Вы не ввели имя...');
         }
         if (newChatName) {
-            let newId = chatList.length + 1;
+            let newId = chatList[chatList.length-1].id + 1;
             setChatList([...chatList,{id: newId, name: newChatName}]);
             setMessageList({...messageList, [newId]:[]});
         }
+        console.log(`Добавление чата ${newChatName}`);
     }
     const handleDeleteChatClick = (id) => {
-        console.log(`Удаление чата ${id}`)
+        console.log(`Удаление чата ${id}`);
+        let indexToDelete = chatList.findIndex((chat)=>{
+            return chat.id == id;
+        });
+        if (indexToDelete >= 0){
+            let newChatList = [...chatList];
+            newChatList.splice(indexToDelete,1);
+            setChatList(newChatList);
+
+            let newMessageList = {...messageList};
+            delete newMessageList[indexToDelete+1];
+            setMessageList(newMessageList);
+            return <Navigate to={'/chat'}/>
+        } else {
+            console.log(`Нет чата с id ${id}`)
+        }
     }
 
     return (
