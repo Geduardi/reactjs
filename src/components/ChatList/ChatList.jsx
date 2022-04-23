@@ -30,8 +30,12 @@ export const ChatList = () => {
             setMessageList({...messageList, [newId]:[]});
         }
     }
-    const handleDeleteChatClick = () => {
+    const handleDeleteChatClick = (chatId) => {
+        let newChatList = chatList.map((chat, i)->{
+            if (chat.id === chatId){
 
+            }
+        });
     }
 
     return (

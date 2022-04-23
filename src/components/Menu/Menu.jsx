@@ -20,6 +20,14 @@ export const Menu = () => {
                     </ListItemButton>
                 </NavLink>
             </ListItem>
+            <ListItem disablePadding>
+                <NavLink to={'/profile'}
+                         style={({isActive}) => ({color: isActive ? "blueviolet" : "white"})}>
+                    <ListItemButton>
+                        <ListItemText primary={"Профиль"}/>
+                    </ListItemButton>
+                </NavLink>
+            </ListItem>
         </List>
     )
 }

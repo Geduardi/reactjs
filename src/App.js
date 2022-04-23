@@ -6,6 +6,7 @@ import {ChatList} from "./components/ChatList/ChatList";
 import {ThemeProvider} from "@mui/material";
 import {THEME} from "./utils/theme";
 import {Menu} from "./components/Menu/Menu";
+import {Profile} from "./screens/Profile/Profile";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                 <Menu/>
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/chat'} element={<ChatList/>}>
                         <Route path={':id'} element={<Chat/>}/>
                     </Route>
