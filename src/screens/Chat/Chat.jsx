@@ -7,7 +7,8 @@ import {Button} from "@mui/material";
 
 export const Chat = () => {
     const { id } = useParams();
-    const [messageList, setMessageList] = useState(useOutletContext());
+    const [startMessageList,handleDeleteChatClick] = useOutletContext();
+    const [messageList, setMessageList] = useState(startMessageList);
 
 
     const timeout = useRef();
@@ -51,6 +52,7 @@ export const Chat = () => {
 
     return (
         <div className="App">
+            <Button onClick={handleDeleteChatClick()}>Удалить чат</Button>
                 <MessageList messages={messageList[id]}/>
                 <Form onSubmit={sendMsg}/>
 

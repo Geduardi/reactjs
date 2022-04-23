@@ -30,8 +30,8 @@ export const ChatList = () => {
             setMessageList({...messageList, [newId]:[]});
         }
     }
-    const handleDeleteChatClick = () => {
-
+    const handleDeleteChatClick = (id) => {
+        console.log(`Удаление чата ${id}`)
     }
 
     return (
@@ -69,9 +69,9 @@ export const ChatList = () => {
                 <div>
                     <Button onClick={handleAddChatClick}>Добавить чат</Button>
                 </div>
-                <Button onClick={handleDeleteChatClick}>Удалить чат</Button>
+
             </div>
-            <Outlet context={messageList}/>
+            <Outlet context={[messageList,handleDeleteChatClick]}/>
         </>
     );
 }
