@@ -1,5 +1,5 @@
-import {useEffect, useRef, useState} from "react";
-import {Navigate, useParams} from "react-router-dom";
+import {useEffect, useRef} from "react";
+import {Navigate, useOutletContext, useParams} from "react-router-dom";
 
 import './Chat.css'
 import {AUTHORS} from "../../utils/constants";
@@ -11,8 +11,9 @@ import {addMessage} from "../../store/messages/actions";
 import {selectMessages} from "../../store/messages/selectors";
 import {selectName} from "../../store/profile/selectors";
 
-export const Chat = ({handleDeleteChatClick}) => {
+export const Chat = () => {
     const {id} = useParams();
+    const handleDeleteChatClick = useOutletContext();
     const messageList = useSelector(selectMessages, shallowEqual);
     const author = useSelector(selectName);
     const dispatch = useDispatch();
@@ -23,7 +24,6 @@ export const Chat = ({handleDeleteChatClick}) => {
     }
 
     const sendMsg = (text) => {
-        // addMsg({author: human, text: text})
         addMsg({
             author: author,
             text,//^^Эквивалент "text: text"^^

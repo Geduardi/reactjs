@@ -3,13 +3,16 @@ import {Link, Outlet} from "react-router-dom";
 import {Button, Menu, MenuItem} from "@mui/material";
 
 import './ChatList.styles.css';
-import {shallowEqual, useSelector} from "react-redux";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {selectChats} from "../../store/chats/selctors";
+import {addChat, deleteChat} from "../../store/chats/actions";
 
 
-export const ChatList = ({handleAddChatClick}) => {
-
+export const ChatList = () => {
+    const dispatch = useDispatch();
     const chats = useSelector(selectChats, shallowEqual);
+
+
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleChatListClick = (event) => {
@@ -19,6 +22,20 @@ export const ChatList = ({handleAddChatClick}) => {
         setAnchorEl(null);
     };
 
+
+    const handleAddChatClick = () => {
+        let newChatName = prompt('Введите название нового чата', '');
+        if (newChatName === '') {
+            alert('Вы не ввели имя...');
+        }
+        if (newChatName) {
+            dispatch(addChat({id: `chat-${Date.now()}`, name: newChatName}));
+        }
+    }
+
+    const handleDeleteChatClick = (id) => {
+        dispatch(deleteChat(id));
+    }
 
     return (
         <>
@@ -56,7 +73,7 @@ export const ChatList = ({handleAddChatClick}) => {
                     <Button onClick={handleAddChatClick}>Добавить чат</Button>
                 </div>
             </div>
-            <Outlet/>
+            <Outlet context={handleDeleteChatClick}/>
         </>
     );
 }
