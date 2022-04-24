@@ -1,16 +1,15 @@
 import {useState} from "react";
-import {Link, Navigate, Outlet} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 import {Button, Menu, MenuItem} from "@mui/material";
 
 import './ChatList.styles.css';
-import {initChats, initMessages} from "../../utils/constants";
+import {shallowEqual, useSelector} from "react-redux";
+import {selectChats} from "../../store/chats/selctors";
 
 
-export const ChatList = () => {
+export const ChatList = ({handleAddChatClick}) => {
 
-    const [chatList, setChatList] = useState(initChats);
-    const [messageList, setMessageList] = useState(initMessages);
-
+    const chats = useSelector(selectChats, shallowEqual);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleChatListClick = (event) => {
@@ -20,20 +19,6 @@ export const ChatList = () => {
         setAnchorEl(null);
     };
 
-    const handleAddChatClick = () => {
-        let newChatName = prompt('Введите название нового чата','');
-        if (newChatName === '') {
-            alert('Вы не ввели имя...');
-        }
-        if (newChatName) {
-            let newId = chatList.length + 1;
-            setChatList((pervChatList)=>([...pervChatList,{id: newId, name: newChatName}]));
-            setMessageList((prevMessageList)=>({...prevMessageList, [newId]:[]}));
-        }
-    }
-    const handleDeleteChatClick = () => {
-
-    }
 
     return (
         <>
@@ -57,7 +42,7 @@ export const ChatList = () => {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        {chatList.map((chat) =>
+                        {chats.map((chat) =>
                             <MenuItem key={chat.id} onClick={handleChatListClose}>
                                 <Link to={`/chat/${chat.id}`} key={chat.id}>
                                     {chat.name}
@@ -70,9 +55,8 @@ export const ChatList = () => {
                 <div>
                     <Button onClick={handleAddChatClick}>Добавить чат</Button>
                 </div>
-                <Button onClick={handleDeleteChatClick}>Удалить чат</Button>
             </div>
-            <Outlet context={messageList}/>
+            <Outlet/>
         </>
     );
 }

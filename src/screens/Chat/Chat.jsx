@@ -1,25 +1,31 @@
 import {useEffect, useRef, useState} from "react";
-import {Navigate, useOutletContext, useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 
+import './Chat.css'
 import {AUTHORS} from "../../utils/constants";
 import {MessageList} from "../../components/MessageList/MessageList";
 import {Form} from "../../components/Form/Form";
+import {Button} from "@mui/material";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import {addMessage} from "../../store/messages/actions";
+import {selectMessages} from "../../store/messages/selectors";
+import {selectName} from "../../store/profile/selectors";
 
-export const Chat = () => {
-    const { id } = useParams();
-    const [messageList, setMessageList] = useState(useOutletContext());
-
-
+export const Chat = ({handleDeleteChatClick}) => {
+    const {id} = useParams();
+    const messageList = useSelector(selectMessages, shallowEqual);
+    const author = useSelector(selectName);
+    const dispatch = useDispatch();
     const timeout = useRef();
 
     const addMsg = (Msg) => {
-        setMessageList({...messageList, [id]: [...messageList[id],Msg]})
+        dispatch(addMessage(id, Msg));
     }
 
     const sendMsg = (text) => {
         // addMsg({author: human, text: text})
         addMsg({
-            author: AUTHORS.human,
+            author: author,
             text,//^^Эквивалент "text: text"^^
             id: `msg-${Date.now()}`,
         })
@@ -28,7 +34,7 @@ export const Chat = () => {
 
     useEffect(() => {
         const lastMsg = messageList[id]?.[messageList[id]?.length - 1];
-        if (lastMsg?.author === AUTHORS.human) { //optional chaining
+        if (lastMsg?.author === author) { //optional chaining
             timeout.current = setTimeout(() => {
                 addMsg({
                     author: AUTHORS.robotName,
@@ -45,15 +51,15 @@ export const Chat = () => {
 
     }, [messageList])
 
-    if (!messageList[id]){
-        return <Navigate to={"/chat"} replace />
+    if (!messageList[id]) {
+        return <Navigate to={"/chat"} replace/>
     }
 
     return (
         <div className="App">
-                <MessageList messages={messageList[id]}/>
-                <Form onSubmit={sendMsg}/>
-
+            <Button className={"delete-btn"} onClick={() => handleDeleteChatClick(id)}>Удалить этот чат</Button>
+            <MessageList messages={messageList[id]}/>
+            <Form onSubmit={sendMsg} label={"Написать сообщение"}/>
         </div>
     );
 }

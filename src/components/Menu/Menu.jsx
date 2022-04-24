@@ -6,7 +6,7 @@ export const Menu = () => {
     return (
         <List className={"menu"}>
             <ListItem disablePadding>
-                <NavLink to={'/'} style={({isActive}) => ({color: isActive ? "blueviolet" : "white"})}>
+                <NavLink to={'/'} style={({isActive}) => ({color: isActive ? "gold" : "white"})}>
                     <ListItemButton>
                         <ListItemText primary={"Главная"}/>
                     </ListItemButton>
@@ -14,7 +14,7 @@ export const Menu = () => {
             </ListItem>
             <ListItem disablePadding>
                 <NavLink to={'/chat'}
-                         style={({isActive}) => ({color: isActive ? "blueviolet" : "white"})}>
+                         style={({isActive}) => ({color: isActive ? "gold" : "white"})}>
                     <ListItemButton>
                         <ListItemText primary={"Чаты"}/>
                     </ListItemButton>
@@ -22,7 +22,7 @@ export const Menu = () => {
             </ListItem>
             <ListItem disablePadding>
                 <NavLink to={'/profile'}
-                         style={({isActive}) => ({color: isActive ? "blueviolet" : "white"})}>
+                         style={({isActive}) => ({color: isActive ? "gold" : "white"})}>
                     <ListItemButton>
                         <ListItemText primary={"Профиль"}/>
                     </ListItemButton>

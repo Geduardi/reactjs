@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import './Form.styles.css';
 import {Button, TextField} from "@mui/material";
 
-export const Form = ({onSubmit}) => {
+export const Form = ({onSubmit,label=''}) => {
 
     const [value, setValue] = useState('');
 
@@ -11,6 +11,7 @@ export const Form = ({onSubmit}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(value);
+        console.log(value)
         setValue('');
         inputRef.current?.focus();
     }
@@ -32,7 +33,7 @@ export const Form = ({onSubmit}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <TextField variant={"outlined"} label="Написать сообщение" onKeyDown={handleKeyDown} multiline maxRows={3}
+            <TextField variant={"outlined"} label={label} onKeyDown={handleKeyDown} multiline maxRows={3}
                        size={"small"} value={value} onChange={handleChange} inputRef={inputRef}/>
             <Button type={"submit"} variant={"contained"}>Отправить</Button>
         </form>
