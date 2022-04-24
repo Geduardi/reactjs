@@ -26,8 +26,8 @@ export const ChatList = () => {
         }
         if (newChatName) {
             let newId = chatList[chatList.length-1].id + 1;
-            setChatList([...chatList,{id: newId, name: newChatName}]);
-            setMessageList({...messageList, [newId]:[]});
+            setChatList((prevChatList) => [...prevChatList,{id: newId, name: newChatName}]);
+            setMessageList((prevMessageList) => ({...prevMessageList, [newId]:[]}));
         }
         console.log(`Добавление чата ${newChatName}`);
     }
