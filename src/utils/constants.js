@@ -3,7 +3,7 @@ export const AUTHORS = {
     robotName: "Bot"
 }
 
-export const CHATS = [
+export const initChats = [
     {
         id: 1,
         name: 'Чат 1',
@@ -17,9 +17,7 @@ export const CHATS = [
         name: 'Чат 3',
     }
 ]
-
-export const initMessages = {
-    1: [],
-    2: [],
-    3: [],
-}
+export const initMessages = initChats.reduce((acc,chat)=>{
+    acc[chat.id] = [];
+    return acc;
+},{});

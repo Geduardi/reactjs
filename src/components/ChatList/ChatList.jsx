@@ -1,13 +1,14 @@
-import {Button, Menu, MenuItem} from "@mui/material";
-import './ChatList.styles.css';
 import {useState} from "react";
 import {Link, Navigate, Outlet} from "react-router-dom";
-import {CHATS, initMessages} from "../../utils/constants";
+import {Button, Menu, MenuItem} from "@mui/material";
+
+import './ChatList.styles.css';
+import {initChats, initMessages} from "../../utils/constants";
 
 
 export const ChatList = () => {
 
-    const [chatList, setChatList] = useState(CHATS);
+    const [chatList, setChatList] = useState(initChats);
     const [messageList, setMessageList] = useState(initMessages);
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -26,8 +27,8 @@ export const ChatList = () => {
         }
         if (newChatName) {
             let newId = chatList.length + 1;
-            setChatList([...chatList,{id: newId, name: newChatName}]);
-            setMessageList({...messageList, [newId]:[]});
+            setChatList((pervChatList)=>([...pervChatList,{id: newId, name: newChatName}]));
+            setMessageList((prevMessageList)=>({...prevMessageList, [newId]:[]}));
         }
     }
     const handleDeleteChatClick = () => {

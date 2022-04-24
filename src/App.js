@@ -1,13 +1,14 @@
-import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Provider} from "react-redux";
+import {ThemeProvider} from "@mui/material";
+
+import './App.css';
 import {Home} from "./screens/Home/Home";
 import {Chat} from "./screens/Chat/Chat";
 import {ChatList} from "./components/ChatList/ChatList";
-import {ThemeProvider} from "@mui/material";
 import {THEME} from "./utils/theme";
 import {Menu} from "./components/Menu/Menu";
 import {Profile} from "./screens/Profile/Profile";
-import {Provider} from "react-redux";
 import {store} from "./store";
 
 

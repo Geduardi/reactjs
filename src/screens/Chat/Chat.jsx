@@ -1,9 +1,9 @@
 import {useEffect, useRef, useState} from "react";
+import {Navigate, useOutletContext, useParams} from "react-router-dom";
+
 import {AUTHORS} from "../../utils/constants";
 import {MessageList} from "../../components/MessageList/MessageList";
 import {Form} from "../../components/Form/Form";
-import {Navigate, useOutletContext, useParams} from "react-router-dom";
-import {Button} from "@mui/material";
 
 export const Chat = () => {
     const { id } = useParams();
