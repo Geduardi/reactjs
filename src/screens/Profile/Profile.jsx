@@ -12,11 +12,13 @@ export const Profile = () => {
         dispatch(setName(text));
     }
 
+    const handleCheckboxChange = () => dispatch(toggleCheckBox);
+
     return <>
         <h4>Profile page</h4>
         {/*<button onClick={()=>{dispatch(toggleCheckBox)}}>Click</button>*/}
-        <input type={"checkbox"} onChange={()=>{dispatch(toggleCheckBox)}} checked={showName}/>
+        <input type={"checkbox"} onChange={handleCheckboxChange} checked={showName}/>
         {showName && <span>{name}</span>}
         <Form onSubmit={handleSubmit} label={"Введите новое имя"}/>
-        </>
+    </>
 }
