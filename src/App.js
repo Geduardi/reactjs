@@ -1,61 +1,48 @@
-import './App.css';
-import {useEffect, useRef, useState} from "react";
-import {Form} from "./components/Form/Form";
-import {AUTHORS, CHATS} from "./utils/constants";
-import {MessageList} from "./components/MessageList/MessageList";
-import {ChatList} from "./components/ChatList/ChatList";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {ThemeProvider} from "@mui/material";
-import {THEME} from "./utils/theme";
 
+import './App.css';
+import {Home} from "./screens/Home/Home";
+import {Chat} from "./screens/Chat/Chat";
+import {ChatList} from "./components/ChatList/ChatList";
+import {Theme} from "./utils/theme";
+import {Menu} from "./components/Menu/Menu";
+import {Profile} from "./screens/Profile/Profile";
+import {addChat, deleteChat} from "./store/chats/actions";
+import {useState} from "react";
 
 
 function App() {
-    const [messageList, setMessageList] = useState([]);
-    const [chatList, setChatList] = useState(CHATS);
 
-    const timeout = useRef();
-
-    const addMsg = (Msg) => {
-        setMessageList([...messageList, Msg])
-    }
-
-    const sendMsg = (text) => {
-        // addMsg({author: human, text: text})
-        addMsg({
-            author: AUTHORS.human,
-            text,//^^Эквивалент "text: text"^^
-            id: `msg-${Date.now()}`,
-        })
-    }
-
-    useEffect(() => {
-        // if (messageList.length > 0 && messageList[messageList.length-1].author !== robotName) {
-        if (messageList[messageList.length - 1]?.author === AUTHORS.human) { //optional chaining
-            timeout.current = setTimeout(() => {
-                addMsg({
-                    author: AUTHORS.robotName,
-                    text: "Ваше сообщение отправлено",
-                    id: `msg-${Date.now()}`,
-                })
-            }, 1500);
+    const dispatch = useDispatch();
+    const handleAddChatClick = () => {
+        let newChatName = prompt('Введите название нового чата', '');
+        if (newChatName === '') {
+            alert('Вы не ввели имя...');
         }
-
-        return () => {
-            clearTimeout(timeout.current);
-        };
-
-    }, [messageList])
-
-
+        if (newChatName) {
+            dispatch(addChat({id: `chat-${Date.now()}`, name: newChatName}));
+        }
+    }
+    const handleDeleteChatClick = (id) => {
+        dispatch(deleteChat(id));
+    }
     return (
-        <div className="App">
-            <ThemeProvider theme={THEME}>
-                <ChatList chats={chatList}/>
-                <MessageList messages={messageList}/>
-                <Form onSubmit={sendMsg}/>
-            </ThemeProvider>
-        </div>
-    );
+        <ThemeProvider theme={Theme}>
+            <BrowserRouter>
+                <Menu/>
+                <Routes>
+                    <Route path={'/'} element={<Home/>}/>
+                    <Route path={'/profile'} element={<Profile/>}/>
+                    <Route path={'/chat'} element={<ChatList handleAddChatClick={handleAddChatClick}/>}>
+                        <Route path={':id'} element={<Chat handleDeleteChatClick={handleDeleteChatClick}/>}/>
+                    </Route>
+                    <Route path={'*'} element={<Home/>}/>
+                </Routes>
+            </BrowserRouter>
+        </ThemeProvider>
+    )
 }
 
 export default App;
