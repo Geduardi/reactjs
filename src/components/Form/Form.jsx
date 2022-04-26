@@ -11,7 +11,6 @@ export const Form = ({onSubmit,label=''}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(value);
-        console.log(value)
         setValue('');
         inputRef.current?.focus();
     }

@@ -6,8 +6,9 @@ import thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 import {persistReducer, persistStore} from "redux-persist";
 import createSagaMiddleware from 'redux-saga'
+import {sagaWatcher} from "./sagas";
 
-const persistConfig =  {
+const persistConfig = {
     key: "Messenger",
     storage
 }
@@ -17,15 +18,17 @@ const rootReducer = combineReducers({
     messages: messagesReducer,
 })
 
-const persistedReducer = persistReducer(persistConfig,rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const saga = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
     persistedReducer,
-    composeEnhancers(applyMiddleware(saga))
+    composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
 )
+
+sagaMiddleware.run(sagaWatcher)
 
 export const persistor = persistStore(store);
