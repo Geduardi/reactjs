@@ -3,13 +3,12 @@ import {AUTHORS} from "../../utils/constants";
 import {useEffect, useRef} from "react";
 import PropTypes from 'prop-types';
 
-export const Message = ({msgText, author, robotName}) => {
+export const Message = ({msgText, author}) => {
     const messageRef = useRef();
 
     Message.prototype = {
         msgText: PropTypes.string,
         author: PropTypes.string,
-        robotName: PropTypes.string
     }
 
     useEffect(() => {

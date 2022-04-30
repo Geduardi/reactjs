@@ -1,5 +1,4 @@
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {ThemeProvider} from "@mui/material";
 
 import './App.css';
@@ -9,25 +8,10 @@ import {ChatList} from "./components/ChatList/ChatList";
 import {Theme} from "./utils/theme";
 import {Menu} from "./components/Menu/Menu";
 import {Profile} from "./screens/Profile/Profile";
-import {addChat, deleteChat} from "./store/chats/actions";
-import {useState} from "react";
 
 
 function App() {
 
-    const dispatch = useDispatch();
-    const handleAddChatClick = () => {
-        let newChatName = prompt('Введите название нового чата', '');
-        if (newChatName === '') {
-            alert('Вы не ввели имя...');
-        }
-        if (newChatName) {
-            dispatch(addChat({id: `chat-${Date.now()}`, name: newChatName}));
-        }
-    }
-    const handleDeleteChatClick = (id) => {
-        dispatch(deleteChat(id));
-    }
     return (
         <ThemeProvider theme={Theme}>
             <BrowserRouter>
@@ -35,8 +19,8 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/profile'} element={<Profile/>}/>
-                    <Route path={'/chat'} element={<ChatList handleAddChatClick={handleAddChatClick}/>}>
-                        <Route path={':id'} element={<Chat handleDeleteChatClick={handleDeleteChatClick}/>}/>
+                    <Route path={'/chat'} element={<ChatList/>}>
+                        <Route path={':id'} element={<Chat/>}/>
                     </Route>
                     <Route path={'*'} element={<Home/>}/>
                 </Routes>

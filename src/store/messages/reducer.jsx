@@ -6,7 +6,6 @@ const initMessages = {};
 export const messagesReducer = (state = initMessages, {type, payload}) => {
     switch (type) {
         case ADD_MESSAGE: {
-            console.log({...state, [payload.chatId]: [...state[payload.chatId], payload.message]})
             return {...state, [payload.chatId]: [...state[payload.chatId], payload.message]}
         }
         case ADD_CHAT: {
