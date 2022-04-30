@@ -1,22 +1,23 @@
-import { takeEvery,put,call } from 'redux-saga/effects'
+import {all, delay, put, takeLatest} from 'redux-saga/effects'
 import {ADD_MESSAGE_WITH_REPLY, addMessage} from "./messages/actions";
-import {AUTHORS} from "../utils/constants";
+import {apiUrlSpace, AUTHORS} from "../utils/constants";
+import {GET_ARTICLES_REQUEST, getArticlesFailure, getArticlesSuccess} from "./articles/actions";
 
-export const sagaWatcher = function* () {
-    yield takeEvery(ADD_MESSAGE_WITH_REPLY,sagaWorker)
+export const rootSaga = function* () {
+    yield all([
+        addReplyFromBotWatcher(),
+        fetchArticlesWatcher(),
+    ])
 }
 
-let timeout;
-
-const wait = ms => {
-    clearTimeout(timeout)
-    return new Promise(resolve => timeout = setTimeout(resolve,ms))
+const addReplyFromBotWatcher = function* () {
+    yield takeLatest(ADD_MESSAGE_WITH_REPLY, addReplyFromBot)
 }
 
-const sagaWorker = function* ({type, payload}) {
+const addReplyFromBot = function* ({type, payload}) {
     yield put(addMessage(payload.chatId, payload.message))
     if (payload.message?.author !== AUTHORS.robotName) {
-        yield call(wait,1500)
+        yield delay(1500)
         yield put(addMessage(
             payload.chatId,
             {
@@ -25,5 +26,24 @@ const sagaWorker = function* ({type, payload}) {
                 id: `msg-${Date.now()}`,
             }
         ))
+    }
+}
+
+const fetchArticlesWatcher = function* () {
+    yield takeLatest(GET_ARTICLES_REQUEST, fetchArticles)
+}
+
+const fetchArticles = function* () {
+    try {
+        const response = yield fetch(apiUrlSpace)
+        if (!response.ok) {
+            throw new Error(`Response failed with error: ${response.status}`)
+        }
+        const result = yield response.json();
+        console.log(result)
+        yield put(getArticlesSuccess(result))
+    } catch (e) {
+        console.log(e.message)
+        yield put(getArticlesFailure(e.message))
     }
 }

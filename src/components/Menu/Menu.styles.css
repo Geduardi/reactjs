@@ -1,6 +1,31 @@
 a {
     text-decoration: none;
+    color: white;
 }
+
 .menu {
+
+}
+
+.menu-list.MuiList-root {
     display: flex;
+    width: 100vw;
+}
+
+.menu-list a{
+    width: 100%;
+}
+.menu-list .MuiListItemButton-root{
+    text-align: center;
+}
+
+
+
+@media screen and (max-width: 450px) {
+    .menu-list.MuiList-root {
+        flex-direction: column;
+    }
+    .menu-list li {
+        justify-content: center;
+    }
 }

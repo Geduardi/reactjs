@@ -1,9 +1,13 @@
 .messageArea {
     text-align: center;
     overflow-y: scroll;
-    max-height: 85vh;
+    max-height: 65vh;
     max-width: 70vw;
     margin: auto;
+}
+
+.messageArea-bordered {
+    border: double 10px #24a9e7;
 }
 
 .messageArea::-webkit-scrollbar {

@@ -4,7 +4,7 @@ import './Menu.styles.css';
 
 export const Menu = () => {
     return (
-        <List className={"menu"}>
+        <List className={"menu-list"}>
             <ListItem disablePadding>
                 <NavLink to={'/'} style={({isActive}) => ({color: isActive ? "gold" : "white"})}>
                     <ListItemButton>
@@ -25,6 +25,14 @@ export const Menu = () => {
                          style={({isActive}) => ({color: isActive ? "gold" : "white"})}>
                     <ListItemButton>
                         <ListItemText primary={"Профиль"}/>
+                    </ListItemButton>
+                </NavLink>
+            </ListItem>
+            <ListItem disablePadding>
+                <NavLink to={'/articles'}
+                         style={({isActive}) => ({color: isActive ? "gold" : "white"})}>
+                    <ListItemButton>
+                        <ListItemText primary={"Новости"}/>
                     </ListItemButton>
                 </NavLink>
             </ListItem>

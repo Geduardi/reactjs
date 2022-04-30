@@ -1,4 +1,4 @@
-import {useMemo, useRef} from "react";
+import {useMemo} from "react";
 import {Navigate, useOutletContext, useParams} from "react-router-dom";
 
 import './Chat.css'
@@ -6,7 +6,7 @@ import {MessageList} from "../../components/MessageList/MessageList";
 import {Form} from "../../components/Form/Form";
 import {Button} from "@mui/material";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
-import {addMessageWithReply} from "../../store/messages/actions";
+import {addMessageWithReply, clearMessages} from "../../store/messages/actions";
 import {selectMessagesById} from "../../store/messages/selectors";
 import {selectName} from "../../store/profile/selectors";
 
@@ -30,13 +30,20 @@ export const Chat = () => {
         })
     }
 
+    const handleClearMessagesClick = (id) => {
+        dispatch(clearMessages(id))
+    }
+
     if (!messageList) {
         return <Navigate to={"/chat"} replace/>
     }
 
     return (
-        <div className="App">
-            <Button className={"delete-btn"} onClick={() => handleDeleteChatClick(id)}>Удалить этот чат</Button>
+        <div className="chat">
+            <div className='chat-buttons'>
+                <Button className={"delete-btn"} onClick={() => handleDeleteChatClick(id)}>Удалить этот чат</Button>
+                <Button className={"delete-btn"} onClick={() => handleClearMessagesClick(id)}>Очистить чат</Button>
+            </div>
             <MessageList messages={messageList}/>
             <Form onSubmit={sendMsg} label={"Написать сообщение"}/>
         </div>

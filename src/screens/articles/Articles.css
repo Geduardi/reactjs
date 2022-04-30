@@ -1,0 +1,23 @@
+.articles-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.article-card-box{
+    margin: 5px auto;
+}
+
+.article-card {
+    margin: 0 5px;
+    height: 100%;
+    position: relative;
+}
+
+.article-card-summary.MuiTypography-root{
+    margin-bottom: 40px;
+}
+
+.MuiCardActions-root {
+    position: absolute;
+    bottom: 0px;
+}

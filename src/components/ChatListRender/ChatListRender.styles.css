@@ -1,4 +1,4 @@
-.chatArea.MuiList-root {
+.chatList-area.MuiList-root {
     position: fixed;
     text-align: left;
     left: 10px;
@@ -6,3 +6,14 @@
     max-width: 15vw;
 }
 
+.chatList-buttons {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    max-width: 25vw;
+}
+
+.chatList-buttons button:hover{
+    background-color: #24a4ff;
+    color: white;
+}
