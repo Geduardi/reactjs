@@ -29,7 +29,7 @@ export const Menu = () => {
                 </NavLink>
             </ListItem>
             <ListItem disablePadding>
-                <NavLink to={'/articles'}
+                <NavLink to={'/Articles'}
                          style={({isActive}) => ({color: isActive ? "gold" : "white"})}>
                     <ListItemButton>
                         <ListItemText primary={"Новости"}/>
