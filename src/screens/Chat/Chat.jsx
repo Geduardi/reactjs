@@ -45,7 +45,7 @@ export const Chat = () => {
                 <Button className={"delete-btn"} onClick={() => handleClearMessagesClick(id)}>Очистить чат</Button>
             </div>
             <MessageList messages={messageList}/>
-            <Form onSubmit={sendMsg} label={"Написать сообщение"}/>
+            <Form onSubmit={sendMsg} label={"Написать сообщение"} inputFocus/>
         </div>
     );
 }

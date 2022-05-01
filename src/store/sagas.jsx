@@ -40,10 +40,8 @@ const fetchArticles = function* () {
             throw new Error(`Response failed with error: ${response.status}`)
         }
         const result = yield response.json();
-        console.log(result)
         yield put(getArticlesSuccess(result))
     } catch (e) {
-        console.log(e.message)
         yield put(getArticlesFailure(e.message))
     }
 }
