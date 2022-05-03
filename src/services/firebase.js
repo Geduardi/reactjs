@@ -29,4 +29,6 @@ export const logOut = async () => {
     await signOut(auth)
 }
 
-export const userRef = ref(db,"users")
+export const userRef = ref(db,"user")
+export const userNameRef = ref(db, "user/name")
+export const userShowName = ref(db, "user/showName")

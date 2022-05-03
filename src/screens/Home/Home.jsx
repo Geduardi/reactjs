@@ -11,11 +11,13 @@ export const Home = ({isSignUp}) => {
     let unsubscribe;
 
     const handleSubmit = async ({login, pass, name}) => {
+        //TODO Move logic in middleware
         try {
             if (isSignUp) {
                 await signUp(login, pass)
                 await updateProfile(auth.currentUser, {
                     displayName: name,
+                    //TODO Set new user in BD
                 })
 
             } else {
@@ -25,8 +27,6 @@ export const Home = ({isSignUp}) => {
             setError(e.message)
             unsubscribe = setTimeout(() => setError(''), 4000)
         }
-        console.log(name)
-        console.log(auth.currentUser.displayName)
     }
 
     useEffect(() => {

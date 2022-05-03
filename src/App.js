@@ -37,7 +37,7 @@ function App() {
         })
         return unsubscribe;
     },[])
-    console.log(auth)
+
     return (
         <ThemeProvider theme={Theme}>
             <BrowserRouter>
@@ -47,12 +47,13 @@ function App() {
                         <Route path={''} element={<Home/>}/>
                         <Route path={'signup'} element={<Home isSignUp/>}/>
                     </Route>
-                    <Route path={'/profile'} element={<PrivateRoute authed={authed}/>}>
-                        <Route path={''} element={<Profile/>}/>
+                    <Route path={''} element={<PrivateRoute authed={authed}/>}>
+                        <Route path={'/profile'} element={<Profile/>}/>
+                        <Route path={'/chat'} element={<ChatList/>}>
+                            <Route path={':id'} element={<Chat/>}/>
+                        </Route>
                     </Route>
-                    <Route path={'/chat'} element={<ChatList/>}>
-                        <Route path={':id'} element={<Chat/>}/>
-                    </Route>
+
                     <Route path={'/Articles'} element={<Articles/>}/>
                     <Route path={'*'} element={<Home/>}/>
                 </Routes>
