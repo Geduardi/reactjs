@@ -3,17 +3,6 @@ import {ADD_MESSAGE_WITH_REPLY, addMessage} from "./messages/actions";
 import {apiUrlSpace, AUTHORS} from "../utils/constants";
 import {GET_ARTICLES_REQUEST, getArticlesFailure, getArticlesSuccess} from "./articles/actions";
 
-export const rootSaga = function* () {
-    yield all([
-        addReplyFromBotWatcher(),
-        fetchArticlesWatcher(),
-    ])
-}
-
-const addReplyFromBotWatcher = function* () {
-    yield takeLatest(ADD_MESSAGE_WITH_REPLY, addReplyFromBot)
-}
-
 const addReplyFromBot = function* ({type, payload}) {
     yield put(addMessage(payload.chatId, payload.message))
     if (payload.message?.author !== AUTHORS.robotName) {
@@ -29,8 +18,8 @@ const addReplyFromBot = function* ({type, payload}) {
     }
 }
 
-const fetchArticlesWatcher = function* () {
-    yield takeLatest(GET_ARTICLES_REQUEST, fetchArticles)
+const addReplyFromBotWatcher = function* () {
+    yield takeLatest(ADD_MESSAGE_WITH_REPLY, addReplyFromBot)
 }
 
 const fetchArticles = function* () {
@@ -46,4 +35,15 @@ const fetchArticles = function* () {
         console.log(e.message)
         yield put(getArticlesFailure(e.message))
     }
+}
+
+const fetchArticlesWatcher = function* () {
+    yield takeLatest(GET_ARTICLES_REQUEST, fetchArticles)
+}
+
+export const rootSaga = function* () {
+    yield all([
+        addReplyFromBotWatcher(),
+        fetchArticlesWatcher(),
+    ])
 }
