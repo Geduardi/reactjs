@@ -6,16 +6,19 @@ import thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 import {persistReducer, persistStore} from "redux-persist";
 import createSagaMiddleware from 'redux-saga'
-import {sagaWatcher} from "./sagas";
+import {rootSaga} from "./sagas";
+import {articlesReducer} from "./articles/reducer";
 
 const persistConfig = {
     key: "Messenger",
-    storage
+    storage,
+    blacklist:['articles']
 }
 const rootReducer = combineReducers({
     profile: profileReducer,
     chats: chatsReducer,
     messages: messagesReducer,
+    articles: articlesReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,6 +32,6 @@ export const store = createStore(
     composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
 )
 
-sagaMiddleware.run(sagaWatcher)
+sagaMiddleware.run(rootSaga)
 
 export const persistor = persistStore(store);

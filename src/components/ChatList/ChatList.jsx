@@ -1,12 +1,14 @@
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
-import {selectChats} from "../../store/chats/selctors";
+import {selectChats} from "../../store/chats/selectors";
 import {addChat, deleteChat} from "../../store/chats/actions";
 import {ChatListRender} from "../ChatListRender/ChatListRender";
+import {useNavigate} from "react-router-dom";
 
 
 export const ChatList = () => {
     const dispatch = useDispatch();
     const chats = useSelector(selectChats, shallowEqual);
+    const redirect = useNavigate();
 
     const handleAddChatClick = () => {
         let newChatName = prompt('Введите название нового чата', '');
@@ -14,7 +16,9 @@ export const ChatList = () => {
             alert('Вы не ввели имя...');
         }
         if (newChatName) {
-            dispatch(addChat({id: `chat-${Date.now()}`, name: newChatName}));
+            let newChatId = `chat-${Date.now()}`;
+            dispatch(addChat({id: newChatId, name: newChatName}));
+            redirect(`/chat/${newChatId}`, {replace: true})
         }
     }
 
@@ -23,6 +27,6 @@ export const ChatList = () => {
     }
 
     return (
-        <ChatListRender chats={chats} handleAddChatClick={handleAddChatClick} handleDeleteChatClick={handleDeleteChatClick} />
+        <ChatListRender chats={chats} handleAddChatClick={handleAddChatClick} handleDeleteChatClick={handleDeleteChatClick}  />
     );
 }

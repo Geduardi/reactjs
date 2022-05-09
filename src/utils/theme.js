@@ -14,7 +14,7 @@ export const Theme = createTheme({
                     borderRadius: '10px',
                     width: "fit-content",
                 },
-            }
+            },
         },
         MuiPaper: {
             styleOverrides: {

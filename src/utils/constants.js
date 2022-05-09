@@ -3,21 +3,11 @@ export const AUTHORS = {
     robotName: "Bot"
 }
 
-export const initChats = [
-    {
-        id: 1,
-        name: 'Чат 1',
-    },
-    {
-        id: 2,
-        name: 'Чат 2',
-    },
-    {
-        id: 3,
-        name: 'Чат 3',
-    }
-]
-export const initMessages = initChats.reduce((acc,chat)=>{
-    acc[chat.id] = [];
-    return acc;
-},{});
+export const apiUrlSpace = "https://api.spaceflightnewsapi.net/v3/articles"
+
+export const FETCH_STATUSES = {
+    IDLE: 'idle',
+    REQUEST: 'request',
+    FAILURE: 'failure',
+    SUCCESS: 'success'
+}

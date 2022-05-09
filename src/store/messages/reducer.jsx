@@ -1,4 +1,4 @@
-import {ADD_MESSAGE} from "./actions";
+import {ADD_MESSAGE, CLEAR_MESSAGES} from "./actions";
 import {ADD_CHAT, DELETE_CHAT} from "../chats/actions";
 
 const initMessages = {};
@@ -16,6 +16,9 @@ export const messagesReducer = (state = initMessages, {type, payload}) => {
             delete copy[payload];
             console.log(copy)
             return copy;
+        }
+        case CLEAR_MESSAGES: {
+            return {...state, [payload]:[]}
         }
         default: {
             return state;

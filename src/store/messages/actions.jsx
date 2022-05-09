@@ -1,7 +1,6 @@
-import {AUTHORS} from "../../utils/constants";
-
 export const ADD_MESSAGE = 'MESSAGES::ADD_MESSAGE'
 export const ADD_MESSAGE_WITH_REPLY = 'MESSAGES::ADD_MESSAGE_WITH_REPLY'
+export const CLEAR_MESSAGES = 'MESSAGES::CLEAR_MESSAGES'
 
 export const addMessage = (chatId, message) => ({
     type: ADD_MESSAGE,
@@ -18,4 +17,9 @@ export const addMessageWithReply = (chatId, message) => ({
         chatId,
         message
     },
+})
+
+export const clearMessages = (chatId) => ({
+    type: CLEAR_MESSAGES,
+    payload: chatId
 })

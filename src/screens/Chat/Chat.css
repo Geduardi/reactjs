@@ -3,3 +3,9 @@
     color: white;
     font-weight: bold;
 }
+
+.chat-buttons {
+    display: flex;
+    flex-direction: column;
+    max-width: 25vw;
+}

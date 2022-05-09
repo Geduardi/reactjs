@@ -5,8 +5,7 @@ import {Button, Menu, MenuItem} from "@mui/material";
 import './ChatListRender.styles.css';
 
 
-
-export const ChatListRender = ({chats,handleAddChatClick,handleDeleteChatClick}) => {
+export const ChatListRender = ({chats, handleAddChatClick, handleDeleteChatClick}) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -20,17 +19,17 @@ export const ChatListRender = ({chats,handleAddChatClick,handleDeleteChatClick})
 
     return (
         <>
-            <div className={"chatButtons"}>
-                <div className={"chatArea"}>
-                    <Button variant={"outlined"}
-                            id="basic-button"
-                            aria-controls={open ? 'basic-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleChatListClick}
-                    >
-                        Список чатов
-                    </Button>
+            <div className={"chatList-buttons"}>
+                <Button variant={"outlined"}
+                        id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleChatListClick}
+                >
+                    Список чатов
+                </Button>
+                <div className={"chatList-area"}>
                     <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -50,9 +49,9 @@ export const ChatListRender = ({chats,handleAddChatClick,handleDeleteChatClick})
                     </Menu>
 
                 </div>
-                <div>
-                    <Button onClick={handleAddChatClick}>Добавить чат</Button>
-                </div>
+
+                <Button onClick={handleAddChatClick}>Добавить чат</Button>
+
             </div>
             <Outlet context={handleDeleteChatClick}/>
         </>
