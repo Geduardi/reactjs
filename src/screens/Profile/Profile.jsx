@@ -1,6 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
 import {onValue,set} from "firebase/database"
-import {INIT_TRACK, setName, STOP_TRACK, toggleCheckBox} from "../../store/profile/actions";
+import {
+    INIT_TRACK,
+    initProfileTrack,
+    setName,
+    STOP_TRACK,
+    stopProfileTrack,
+    toggleCheckBox
+} from "../../store/profile/actions";
 import {Form} from "../../components/Form/Form";
 import {selectName, selectShowName} from "../../store/profile/selectors";
 import {Button} from "@mui/material";
@@ -36,7 +43,8 @@ export const Profile = () => {
     useEffect(() => {
         // const unsubscribeName = onValue(userNameRef, (snapshot) => {
             console.log(`INIT_TRACK`)
-            dispatch({type:INIT_TRACK})
+            // dispatch({type:INIT_TRACK})
+        dispatch(initProfileTrack())
     // });
 
     const unsubscribeShowName =  onValue(userShowName, (snapshot => {
@@ -45,7 +53,7 @@ export const Profile = () => {
 
     }))
 
-
+    return () => stopProfileTrack();
 
     },[])
 

@@ -2,6 +2,7 @@ import {put, call, takeLatest, take, cancelled} from "redux-saga/effects";
 import {onValue} from "firebase/database"
 import {userNameRef, userShowName} from "../../services/firebase";
 import {eventChannel} from "redux-saga";
+import {selectName, selectShowName} from "./selectors";
 
 export const TOGGLE_CHECKBOX = 'PROFILE::TOGGLE_CHECKBOX';
 export const SET_NAME = 'PROFILE::SET_NAME';
@@ -45,21 +46,33 @@ let unsubscribe;
 //     }
 // }
 
-export const initProfileTrack = function* () {
-    yield takeLatest(INIT_TRACK, initTrackWorker)
-    // yield takeLatest(INIT_TRACK, someSagaWithChannel)
-}
 
 const initTrackWorker = function* () {
     yield console.log(`initTrackWorker st`)
-    yield onValue(userNameRef, (snapshot) => {
+    onValue(userNameRef, (snapshot) => {
         put(setName(snapshot.val()))
         console.log(`Put in store ${snapshot.val()}`)
     })
     yield console.log(`initTrackWorker end`)
 }
 
-// export const stopProfileTrack = function* () {
+// export const stopSagaProfileTrack = function* () {
 //     yield takeLatest(STOP_TRACK, stopTrackWorker)
 // }
+
+export const initSagaProfileTrack = function* () {
+    yield takeLatest(INIT_TRACK, initTrackWorker)
+    // yield takeLatest(INIT_TRACK, someSagaWithChannel)
+}
+
+export const initProfileTrack = () => (dispatch) => {
+    const unsubscribeName = onValue(userNameRef, (snapshot) => dispatch(selectName(snapshot.val())))
+    const unsubscribeShowName = onValue(userShowName, snapshot => dispatch(selectShowName(snapshot.val())))
+    unsubscribe = () => {
+        unsubscribeName();
+        unsubscribeShowName();
+    }
+}
+
+export const stopProfileTrack = () => () => unsubscribe();
 
