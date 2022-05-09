@@ -46,23 +46,23 @@ let unsubscribe;
 // }
 
 
-const initTrackWorker = function* () {
-    yield console.log(`initTrackWorker st`)
-    onValue(userNameRef, (snapshot) => {
-        put(setName(snapshot.val()))
-        console.log(`Put in store ${snapshot.val()}`)
-    })
-    yield console.log(`initTrackWorker end`)
-}
+// const initTrackWorker = function* () {
+//     yield console.log(`initTrackWorker st`)
+//     onValue(userNameRef, (snapshot) => {
+//         put(setName(snapshot.val()))
+//         console.log(`Put in store ${snapshot.val()}`)
+//     })
+//     yield console.log(`initTrackWorker end`)
+// }
 
 // export const stopSagaProfileTrack = function* () {
 //     yield takeLatest(STOP_TRACK, stopTrackWorker)
 // }
 
-export const initSagaProfileTrack = function* () {
-    yield takeLatest(INIT_TRACK, initTrackWorker)
-    // yield takeLatest(INIT_TRACK, someSagaWithChannel)
-}
+// export const initSagaProfileTrack = function* () {
+//     yield takeLatest(INIT_TRACK, initTrackWorker)
+//     // yield takeLatest(INIT_TRACK, someSagaWithChannel)
+// }
 
 export const initProfileTrack = () => (dispatch) => {
     const unsubscribeName = onValue(userNameRef, (snapshot) => dispatch(setName(snapshot.val())))

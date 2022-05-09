@@ -19,10 +19,6 @@ export const getArticlesFailure = (error) => ({
     payload: error,
 })
 
-export const fetchArticlesWatcher = function* () {
-    yield takeLatest(GET_ARTICLES_REQUEST, fetchArticles)
-}
-
 const fetchArticles = function* () {
     try {
         const response = yield fetch(apiUrlSpace)
@@ -34,4 +30,8 @@ const fetchArticles = function* () {
     } catch (e) {
         yield put(getArticlesFailure(e.message))
     }
+}
+
+export const fetchArticlesWatcher = function* () {
+    yield takeLatest(GET_ARTICLES_REQUEST, fetchArticles)
 }
