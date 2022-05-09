@@ -14,7 +14,6 @@ export const profileReducer = (state = initialState, {type, payload}) => {
             }
         }
         case SET_NAME: {
-            console.log(`New name: ${payload}`)
             return {
                 ...state,
                 name: payload

@@ -19,6 +19,12 @@ export const Form = ({onSubmit, label = '', inputFocus}) => {
         setValue(event.target.value);
     }
 
+    const handleEnter = (event) => {
+        if (event.key === "Enter") {
+            handleSubmit(event)
+        }
+    }
+
 
     useEffect(() => {
         inputFocus && inputRef.current?.focus();
@@ -27,7 +33,7 @@ export const Form = ({onSubmit, label = '', inputFocus}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <TextField variant={"outlined"} label={label} onSubmit={handleSubmit} multiline maxRows={3}
+            <TextField variant={"outlined"} label={label} onSubmit={handleSubmit} onKeyDown={handleEnter} multiline maxRows={3}
                        size={"small"} value={value} onChange={handleChange} inputRef={inputRef}/>
             <Button type={"submit"} variant={"contained"}>Отправить</Button>
         </form>

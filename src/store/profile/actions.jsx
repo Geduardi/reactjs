@@ -1,8 +1,7 @@
 import {put, call, takeLatest, take, cancelled} from "redux-saga/effects";
-import {onValue} from "firebase/database"
+import {onValue, set} from "firebase/database"
 import {userNameRef, userShowName} from "../../services/firebase";
 import {eventChannel} from "redux-saga";
-import {selectName, selectShowName} from "./selectors";
 
 export const TOGGLE_CHECKBOX = 'PROFILE::TOGGLE_CHECKBOX';
 export const SET_NAME = 'PROFILE::SET_NAME';
@@ -66,8 +65,8 @@ export const initSagaProfileTrack = function* () {
 }
 
 export const initProfileTrack = () => (dispatch) => {
-    const unsubscribeName = onValue(userNameRef, (snapshot) => dispatch(selectName(snapshot.val())))
-    const unsubscribeShowName = onValue(userShowName, snapshot => dispatch(selectShowName(snapshot.val())))
+    const unsubscribeName = onValue(userNameRef, (snapshot) => dispatch(setName(snapshot.val())))
+    const unsubscribeShowName = onValue(userShowName, snapshot => dispatch(toggleCheckBox))
     unsubscribe = () => {
         unsubscribeName();
         unsubscribeShowName();
@@ -75,4 +74,12 @@ export const initProfileTrack = () => (dispatch) => {
 }
 
 export const stopProfileTrack = () => () => unsubscribe();
+
+export const setNameDB = (name) => () => {
+    set(userNameRef, name)
+}
+
+export const setShowNameDB = (value) => () => {
+    set(userShowName, value)
+}
 

@@ -7,7 +7,7 @@ export const rootSaga = function* () {
     yield all([
         addReplyFromBotWatcher(),
         fetchArticlesWatcher(),
-        initSagaProfileTrack(),
+        // initSagaProfileTrack(),
         // stopProfileTrack()
     ])
 }
