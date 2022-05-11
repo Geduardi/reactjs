@@ -47,7 +47,7 @@ function App() {
                         <Route path={''} element={<Home/>}/>
                         <Route path={'signup'} element={<Home isSignUp/>}/>
                     </Route>
-                    <Route path={'/'} element={<PrivateRoute authed={authed}/>}>
+                    <Route path={''} element={<PrivateRoute authed={authed}/>}>
                         <Route path={'/chat'} element={<ChatList/>}>
                             <Route path={':id'} element={<Chat/>}/>
                         </Route>
