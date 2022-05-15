@@ -36,8 +36,6 @@ export const Chat = () => {
 //TODO onChildAdded?
     useEffect(()=>{
         const unsubscribe = onValue(getMessagesRefByChatId(id),(snapshot)=>{
-            console.log(id)
-            console.log(snapshot.val())
             if (!snapshot.val()?.exist) {
                 setMessageList(null)
             } else {
@@ -45,7 +43,7 @@ export const Chat = () => {
             }
         })
         return unsubscribe;
-    },[])
+    },[id])
 
     const handleClearMessagesClick = (id) => {
         dispatch(clearMessages(id))
