@@ -12,7 +12,7 @@ import {articlesReducer} from "./articles/reducer";
 const persistConfig = {
     key: "Messenger",
     storage,
-    blacklist:['articles']
+    blacklist:['articles', 'profile', 'chats', 'messages']
 }
 const rootReducer = combineReducers({
     profile: profileReducer,

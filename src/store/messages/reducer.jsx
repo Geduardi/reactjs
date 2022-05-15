@@ -14,7 +14,6 @@ export const messagesReducer = (state = initMessages, {type, payload}) => {
         case DELETE_CHAT: {
             let copy = {...state};
             delete copy[payload];
-            console.log(copy)
             return copy;
         }
         case CLEAR_MESSAGES: {

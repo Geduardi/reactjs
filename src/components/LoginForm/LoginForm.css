@@ -1,0 +1,10 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+    left: 10px;
+    max-width: 50vw;
+}
+.login-form .MuiInputBase-root {
+    background-color: white;
+}
