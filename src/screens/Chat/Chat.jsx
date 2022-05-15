@@ -43,7 +43,7 @@ export const Chat = () => {
             }
         })
         return unsubscribe;
-    },[])
+    },[id])
 
     const handleClearMessagesClick = (id) => {
         dispatch(clearMessages(id))
